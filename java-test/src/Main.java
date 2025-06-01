@@ -5,6 +5,7 @@ import src.model.MenuOption;
 import src.model.UserModel;
 
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -66,7 +67,7 @@ public class Main {
         System.out.println("Enter the user birthday (dd/MM/yyyy) ");
         var birthdayStr = read.next();
         var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        var birthday = OffsetDateTime.parse(birthdayStr, formatter);
+        var birthday = LocalDate.parse(birthdayStr, formatter);
         return new UserModel(0, birthday, email, name);
     }
 
@@ -80,7 +81,7 @@ public class Main {
         System.out.println("Enter the user birthday (dd/MM/yyyy) ");
         var birthdayStr = read.next();
         var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        var birthday = OffsetDateTime.parse(birthdayStr, formatter);
+        var birthday = LocalDate.parse(birthdayStr, formatter);
         return new UserModel(id, birthday, email, name);
     }
 

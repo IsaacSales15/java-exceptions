@@ -1,16 +1,17 @@
 package src.model;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
 public class UserModel {
     private long id;
     private String name, email;
-    private OffsetDateTime birthDay;
+    private LocalDate birthDay;
 
     public UserModel(){}
 
-    public UserModel(long id, OffsetDateTime birthDay, String email, String name) {
+    public UserModel(long id, LocalDate birthDay, String email, String name) {
         this.id = id;
         this.birthDay = birthDay;
         this.email = email;
@@ -41,11 +42,11 @@ public class UserModel {
         this.email = email;
     }
 
-    public OffsetDateTime getBirthDay() {
+    public LocalDate getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(OffsetDateTime birthDay) {
+    public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
 
