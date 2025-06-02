@@ -1,6 +1,8 @@
 package src;
 
 import src.dao.UserDAO;
+import src.exceptions.EmptyStorageException;
+import src.exceptions.UserNotFoundException;
 import src.model.MenuOption;
 import src.model.UserModel;
 
@@ -28,25 +30,37 @@ public class Main {
             System.out.println("5 - Find all");
             System.out.println("6 - Exit");
 
-            var inputOpition = read.nextInt();
+            var inputOption = read.nextInt();
 
-            var selectOption = MenuOption.values()[inputOpition -1];
+            var selectOption = MenuOption.values()[inputOption -1];
             switch (selectOption) {
                 case SAVE -> {
                     var user = dao.save(requestToSave());
                     System.out.printf("User created %s", user);
                 }
                 case UPDATE -> {
+                    try {
                     var user = dao.update(requestToUpdate());
                     System.out.printf("User updated %s", user);
+                    } catch (UserNotFoundException | EmptyStorageException e){
+                        System.out.println(e.getMessage());
+                    }
                 }
                 case DELETE -> {
-                    dao.delete(requestId());
-                    System.out.println("User deleted");
+                    try {
+                        dao.delete(requestId());
+                        System.out.println("User deleted");
+                    } catch (UserNotFoundException | EmptyStorageException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
                 case FIND_BY_ID -> {
-                    var user = dao.findById(requestId());
-                    System.out.printf("User %s", user);
+                    try {
+                        var user = dao.findById(requestId());
+                        System.out.printf("User %s", user);
+                    } catch (UserNotFoundException | EmptyStorageException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
                 case FIND_ALL -> {
                     var users = dao.findAll();

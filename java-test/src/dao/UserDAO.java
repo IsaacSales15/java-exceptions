@@ -1,5 +1,6 @@
 package src.dao;
 
+import src.exceptions.EmptyStorageException;
 import src.exceptions.UserNotFoundException;
 import src.model.UserModel;
 
@@ -31,6 +32,7 @@ public class UserDAO {
     }
 
     public UserModel findById(final long id){
+        verifyStorage();
            return models.stream()
                    .filter(u -> u.getId() == id)
                    .findFirst()
@@ -38,6 +40,19 @@ public class UserDAO {
     }
 
     public List<UserModel> findAll(){
-        return models;
+        List<UserModel> result;
+        try{
+            verifyStorage();
+            result = models;
+
+        } catch (EmptyStorageException e){
+            e.printStackTrace();
+            result = new ArrayList<>();
+        }
+        return result;
+    }
+
+    private void verifyStorage() {
+        if(models.isEmpty()) throw new EmptyStorageException("The storage is empty!");
     }
 }
